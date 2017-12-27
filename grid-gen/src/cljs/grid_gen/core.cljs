@@ -14,7 +14,7 @@
 (def scale 60)
 
 ;; LEDs per meter
-(def pixel-pm 5)
+(def pixel-pm 2.5)
 
 (defn coords
   [{:keys [start end] :as spar}]
@@ -32,23 +32,29 @@
              (+ sy  (* idx dy pitch))])
           (range (inc n))))))
 
-(/ 539 9)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Page
 
+(defn total-pixels
+  [spars]
+  (reduce +
+          (map (fn [spar] (count (coords spar)))
+               spars)))
+
 (defn page [ratom]
   [:div
-   [:div {:style {:position         "fixed"
-                  :width            600
-                  :height           600
-                  :background-image "url(template.jpeg)"
-                  :background-size  570
-                  :filter           "brightness(25%)"}}]
-   [:svg
-    {:width     600
-     :max-width "100%"
-     :viewBox   "0 0 1000 1000"
-     :style     {:position "fixed"}}
+   [:div
+    [:div {:style {:position         "fixed"
+                   :z-index          -1
+                   :width            600
+                   :height           600
+                   :background-image "url(template.jpeg)"
+                   :background-size  570
+                   :filter           "brightness(5%)"}}]
+   (into
+    [:svg
+     {:width   600
+      :viewBox "0 0 1000 1000"}]
     (for [spar coords/spars]
       (let [foo (coords spar)]
         ^{:key (str (rand))}
@@ -60,9 +66,8 @@
                                 :fill :purple}])
                     foo)
                (let [[x y] (:end spar)]
-                 [:circle {:cx x :cy y :r 4 :fill :green}])))))]])
-
-
+                 [:circle {:cx x :cy y :r 4 :fill :green}]))))))]
+   [:h3 "Total leds: " (total-pixels coords/spars)]])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Initialize App

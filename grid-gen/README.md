@@ -11,4 +11,4 @@ lein clean
 lein figwheel dev
 ```
 
-or `cider-jack-in-clojurescript` for a REPL
+or `cider-jack-in-clojurescript` from Emacs to get a REPL
