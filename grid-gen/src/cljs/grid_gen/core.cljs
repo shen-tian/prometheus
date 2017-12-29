@@ -87,33 +87,36 @@
                    :height           600
                    :background-image "url(template.jpeg)"
                    :background-size  570
-                   :filter           "brightness(5%)"}}]
+                   :filter           "brightness(20%)"}}]
    (into
     [:svg
      {:width   600
       :viewBox "0 0 1000 1000"}]
     (for [spar coords/spars]
-      (let [foo (coords spar)]
+      (let [coord (coords spar)]
         ^{:key (str (rand))}
         (into [:g]
-              (conj
+              (concat
                (map (fn [[x y]]
                       [:circle {:cx   x :cy y
                                 :r    3
                                 :fill :purple}])
-                    foo)
+                    coord)
                (let [[x y] (:end spar)]
-                 [:circle {:cx x :cy y :r 4 :fill :green}]))))))]
+                 [[:circle {:cx x :cy y :r 4 :fill :green}]
+                  [:text {:x (+ x 30) :y y :fill "yellow"}
+                   (count coord)]]))))))]
    [:h3 "Total leds: " (total-pixels coords/spars)]
+   [:h4 "Total spars: " (count coords/spars)]
    [:h3 "LED/m: " (:pixel-pm @app-state)]
    [:div
-    [:input {:type "range"
-             :min 2.5
-             :max 10
-             :step 0.5
-             :value (:pixel-pm @app-state)
+    [:input {:type      "range"
+             :min       1.0
+             :max       10
+             :step      0.5
+             :value     (:pixel-pm @app-state)
              :on-change #(swap! app-state assoc :pixel-pm
-                                 (-> % .-target .-value))}]]
+                                (-> % .-target .-value))}]]
    [clipboard-button "Copy JSON" (edn->pstring (lines->edn coords/spars))]
    [:pre (edn->pstring (lines->edn coords/spars))]])
 
