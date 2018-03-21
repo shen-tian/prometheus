@@ -1,7 +1,7 @@
 (defproject grid-gen "0.1.0-SNAPSHOT"
-  :dependencies [[org.clojure/clojure "1.8.0"]
+  :dependencies [[cljsjs/clipboard "1.6.1-1"]
+                 [org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.229"]
-                 [cljsjs/clipboard "1.6.1-1"]
                  [reagent "0.6.1"]]
 
   :min-lein-version "2.5.3"

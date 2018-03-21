@@ -78,7 +78,7 @@
          {:data-clipboard-text text}
          label])})))
 
-(defn page [ratom]
+(defn layout-1 [ratom]
   [:div
    [:div
     [:div {:style {:position         "absolute"
@@ -119,6 +119,80 @@
                                 (-> % .-target .-value))}]]
    [clipboard-button "Copy JSON" (edn->pstring (lines->edn coords/spars))]
    [:pre (edn->pstring (lines->edn coords/spars))]])
+
+(def group-l
+  [{:len 5.73}
+   {:len 4.36}
+   {:len 5.15}
+   {:len 3.16}
+   {:len 5.78}
+   {:len 3.56}])
+
+(def group-m
+  [{:len 8.5}
+   {:len 7.83}
+   {:len 5.75}
+   {:len 7.04}
+   {:len 7.86}
+   {:len 6.19}
+   {:len 8.5}])
+
+(def group-n
+  [{:len 1.69}
+   {:len 4.59}
+   {:len 5.04}
+   {:len 3.3}
+   {:len 5.5}
+   {:len 3.8}
+   {:len 5.37}])
+
+(def group-o
+  [{:len 2.85}
+   {:len 5.12}
+   {:len 2}
+   {:len 4.325}
+   {:len 3.59}])
+
+
+
+(defn lines
+  [group x]
+  (let [scale   100
+        longest (apply max (map :len group))
+        far     (+ 20 (* longest scale))]
+    (map-indexed
+     (fn [idx {:keys [len]}]
+       (let [y (+ x (* 20 idx))]
+         [:g
+          [:line {:x1    (- far (* scale len)) :y1 y
+                  :x2    far                   :y2 y
+                  :style {:stroke :black}}]
+          [:text {:x (+ far 5)
+                  :y (+ y 5)}
+           (str len "m (" (Math/ceil (* len 7)) " px)")]]))
+     group)))
+
+(defn layout-2
+  [ratom]
+  (let [scale 100]
+    (into
+     [:svg {:width 600
+            :view-box "0 0 1000 1000"}]
+     (concat
+      (lines group-l 100)
+      (lines group-m 300)
+      (lines group-n 500)
+      (lines group-o 700)))))
+
+(defn page [ratom]
+  [:div
+   [:div
+    [:button.pure-button {:on-click #(swap! ratom assoc :page 1)} "1"]
+    [:button.pure-button {:on-click #(swap! ratom assoc :page 2)} "2"]]
+   (case (:page @ratom)
+     1 [layout-1 ratom]
+     2 [layout-2 ratom]
+     [layout-2 ratom])])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Initialize App
