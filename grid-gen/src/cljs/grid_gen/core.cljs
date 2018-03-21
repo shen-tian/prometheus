@@ -120,69 +120,93 @@
    [clipboard-button "Copy JSON" (edn->pstring (lines->edn coords/spars))]
    [:pre (edn->pstring (lines->edn coords/spars))]])
 
+(def group-j
+  [{:len 5.28 :fc 3 :ch 0}
+   {:len 5.38 :fc 3 :ch 1}
+   {:len 4.89 :fc 3 :ch 2}
+   {:len 5.67 :fc 3 :ch 3}
+   {:len 4.63 :fc 3 :ch 3}])
+
+(def group-k
+  [{:len 5.96 :fc 3 :ch 4}
+   {:len 5.80 :fc 3 :ch 5}
+   {:len 4.38 :fc 3 :ch 6}
+   {:len 5.90 :fc 3 :ch 6}
+   {:len 4.61 :fc 3 :ch 7}])
+
 (def group-l
-  [{:len 5.73}
-   {:len 4.36}
-   {:len 5.15}
-   {:len 3.16}
-   {:len 5.78}
-   {:len 3.56}])
+  [{:len 5.73 :fc 4 :ch 0}
+   {:len 4.36 :fc 4 :ch 1}
+   {:len 5.15 :fc 4 :ch 2}
+   {:len 3.16 :fc 4 :ch 2}
+   {:len 5.78 :fc 4 :ch 3}
+   {:len 3.56 :fc 4 :ch 3}])
 
 (def group-m
-  [{:len 8.5}
-   {:len 7.83}
-   {:len 5.75}
-   {:len 7.04}
-   {:len 7.86}
-   {:len 6.19}
-   {:len 8.5}])
+  [{:len 8.50 :fc 5 :ch 0}
+   {:len 7.83 :fc 5 :ch 1}
+   {:len 5.75 :fc 5 :ch 2}
+   {:len 7.04 :fc 5 :ch 3}
+   {:len 7.86 :fc 5 :ch 4}
+   {:len 6.19 :fc 5 :ch 5}
+   {:len 8.50 :fc 5 :ch 6}])
 
 (def group-n
-  [{:len 1.69}
-   {:len 4.59}
-   {:len 5.04}
-   {:len 3.3}
-   {:len 5.5}
-   {:len 3.8}
-   {:len 5.37}])
+  [{:len 1.69 :fc 6 :ch 0}
+   {:len 4.59 :fc 6 :ch 0}
+   {:len 5.04 :fc 6 :ch 1}
+   {:len 3.30 :fc 6 :ch 1}
+   {:len 5.50 :fc 6 :ch 2}
+   {:len 3.80 :fc 6 :ch 2}
+   {:len 5.37 :fc 6 :ch 3}])
 
 (def group-o
-  [{:len 2.85}
-   {:len 5.12}
-   {:len 2}
-   {:len 4.325}
-   {:len 3.59}])
+  [{:len 2.85 :fc 6 :ch 4}
+   {:len 5.12 :fc 6 :ch 4}
+   {:len 2.00 :fc 6 :ch 5}
+   {:len 4.32 :fc 6 :ch 5}
+   {:len 3.59 :fc 6 :ch 5}])
 
 
 
 (defn lines
-  [group x]
+  [group start-y label]
   (let [scale   100
         longest (apply max (map :len group))
         far     (+ 20 (* longest scale))]
-    (map-indexed
-     (fn [idx {:keys [len]}]
-       (let [y (+ x (* 20 idx))]
-         [:g
-          [:line {:x1    (- far (* scale len)) :y1 y
-                  :x2    far                   :y2 y
-                  :style {:stroke :black}}]
-          [:text {:x (+ far 5)
-                  :y (+ y 5)}
-           (str len "m (" (Math/ceil (* len 7)) " px)")]]))
-     group)))
+    (into [:g
+           [:text {:x 20 :y (- start-y 10)}
+            label]]
+          (map-indexed
+           (fn [idx {:keys [len fc ch]}]
+             (let [y     (+ start-y (* 18 idx))
+                   hue   (if ch (* 45 ch) 0)
+                   light (if ch (if (even? ch) 40 80) 60)]
+               [:g
+                [:line {:x1    (- far (* scale len)) :y1 y
+                        :x2    far                   :y2 y
+                        :style {:stroke       (str "hsl("
+                                                   hue ", 60%, "
+                                                   light "%)")
+                                :stroke-width 3}}]
+                [:text {:x (+ far 5)
+                        :y (+ y 5)}
+                 (str len "m (" (Math/ceil (* len 7)) " px)")]]))
+           group))))
 
 (defn layout-2
   [ratom]
   (let [scale 100]
     (into
      [:svg {:width 600
-            :view-box "0 0 1000 1000"}]
+            :view-box "0 0 1000 2000"}]
      (concat
-      (lines group-l 100)
-      (lines group-m 300)
-      (lines group-n 500)
-      (lines group-o 700)))))
+      (lines group-j 50  "Group J")
+      (lines group-k 200 "Group K")
+      (lines group-l 350 "Group L")
+      (lines group-m 500 "Group M")
+      (lines group-n 650 "Group N")
+      (lines group-o 800 "Group O")))))
 
 (defn page [ratom]
   [:div
