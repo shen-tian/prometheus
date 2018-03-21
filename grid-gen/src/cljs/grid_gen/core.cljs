@@ -125,12 +125,12 @@
    {:len 5.38 :fc 3 :ch 1}
    {:len 4.89 :fc 3 :ch 2}
    {:len 5.67 :fc 3 :ch 3}
-   {:len 4.63 :fc 3 :ch 3}])
+   {:len 4.63 :fc 3 :ch 3 :reverse? true}])
 
 (def group-k
   [{:len 5.96 :fc 3 :ch 4}
    {:len 5.80 :fc 3 :ch 5}
-   {:len 4.38 :fc 3 :ch 6}
+   {:len 4.38 :fc 3 :ch 6 :reverse? true}
    {:len 5.90 :fc 3 :ch 6}
    {:len 4.61 :fc 3 :ch 7}])
 
@@ -138,9 +138,9 @@
   [{:len 5.73 :fc 4 :ch 0}
    {:len 4.36 :fc 4 :ch 1}
    {:len 5.15 :fc 4 :ch 2}
-   {:len 3.16 :fc 4 :ch 2}
+   {:len 3.16 :fc 4 :ch 2 :reverse? true}
    {:len 5.78 :fc 4 :ch 3}
-   {:len 3.56 :fc 4 :ch 3}])
+   {:len 3.56 :fc 4 :ch 3 :reverse? true}])
 
 (def group-m
   [{:len 8.50 :fc 5 :ch 0}
@@ -152,22 +152,32 @@
    {:len 8.50 :fc 5 :ch 6}])
 
 (def group-n
-  [{:len 1.69 :fc 6 :ch 0}
+  [{:len 1.69 :fc 6 :ch 0 :reverse? true}
    {:len 4.59 :fc 6 :ch 0}
    {:len 5.04 :fc 6 :ch 1}
-   {:len 3.30 :fc 6 :ch 1}
+   {:len 3.30 :fc 6 :ch 1 :reverse? true}
    {:len 5.50 :fc 6 :ch 2}
-   {:len 3.80 :fc 6 :ch 2}
+   {:len 3.80 :fc 6 :ch 2 :reverse? true}
    {:len 5.37 :fc 6 :ch 3}])
 
 (def group-o
   [{:len 2.85 :fc 6 :ch 4}
    {:len 5.12 :fc 6 :ch 4}
-   {:len 2.00 :fc 6 :ch 5}
+   {:len 2.00 :fc 6 :ch 5 :reverse? true}
    {:len 4.32 :fc 6 :ch 5}
    {:len 3.59 :fc 6 :ch 5}])
 
-
+(def arrow-marker
+  [:marker
+   {:id            "arrow-marker"
+    :marker-width  4
+    :marker-height 4
+    :ref-x         0
+    :ref-y         2
+    :orient        "auto"
+    :marker-units  "strokeWidth"}
+   [:path
+    {:d "M0,0 L0,4 L4,2 L0,0"}]])
 
 (defn lines
   [group start-y label]
@@ -178,19 +188,26 @@
            [:text {:x 20 :y (- start-y 10)}
             label]]
           (map-indexed
-           (fn [idx {:keys [len fc ch]}]
+           (fn [idx {:keys [len fc ch reverse?]}]
              (let [y     (+ start-y (* 18 idx))
                    hue   (if ch (* 45 ch) 0)
-                   light (if ch (if (even? ch) 40 80) 60)]
-               [:g
-                [:line {:x1    (- far (* scale len)) :y1 y
-                        :x2    far                   :y2 y
+                   light (if ch (if (even? ch) 40 80) 60)
+                   hsl   (str "hsl("
+                              hue ", 60%, "
+                              light "%)")
+                   x1    (if-not reverse? (- far (* scale len)) far)
+                   x2    (if reverse? (- far (* scale len)) far)]
+               [:g {:fill hsl}
+                [:line {:x1    x1 :y1 y
+                        :x2    x2 :y2 y
                         :style {:stroke       (str "hsl("
                                                    hue ", 60%, "
                                                    light "%)")
-                                :stroke-width 3}}]
-                [:text {:x (+ far 5)
-                        :y (+ y 5)}
+                                :stroke-width 3
+                                :marker-end   "url(#arrow-marker)"}}]
+                [:text {:x     (+ far 15)
+                        :y     (+ y 5)
+                        :style {:fill :black}}
                  (str len "m (" (Math/ceil (* len 7)) " px)")]]))
            group))))
 
@@ -199,7 +216,8 @@
   (let [scale 100]
     (into
      [:svg {:width 600
-            :view-box "0 0 1000 2000"}]
+            :view-box "0 0 1000 2000"}
+      [:defs arrow-marker]]
      (concat
       (lines group-j 50  "Group J")
       (lines group-k 200 "Group K")
