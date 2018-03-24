@@ -61,10 +61,10 @@
             {:len 5.37 :fc 6 :ch 3}]})
 
 (def group-o
-  {:x1     4.45  :y1 12.26
+  {:x1     4.45 :y1 12.26
    :x2     3.42 :y2 12.39
-   :x3     2.44  :y3 7.69
-   :x4     2.30  :y4 7.583
+   :x3     2.44 :y3 7.69
+   :x4     2.30 :y4 7.583
    :strips [{:len 2.85 :fc 6 :ch 4 :reverse? true}
             {:len 5.12 :fc 6 :ch 4}
             {:len 2.00 :fc 6 :ch 5 :reverse? true}
@@ -147,13 +147,52 @@
             :fill-opacity "0.8"
             :stroke       "#ccc"}]))
 
+(defn pixel-coords
+  [{:keys [strips x1 x2 y1 y2] :as group}]
+  (let [n       (count strips)
+        x-pitch (/ (- x2 x1) n)
+        y-pitch (/ (- y2 y1) n)
+        angles  (calc-angles group n)]
+    (->> strips
+         (map
+          (fn [idx angle {:keys [len fc ch reverse?]}]
+            (let [y      (* scale (+ y1 (* y-pitch (+ idx 0.5))))
+                  x      (* scale (+ x1 (* x-pitch (+ idx 0.5))))
+                  sx     (- x (* len scale (Math/cos angle)))
+                  sy     (- y (* len scale (Math/sin angle)))
+                  pixels (Math/ceil (* len pixel-per-m))]
+              (->> (range pixels)
+                   (map (fn [i]
+                          {:x   (- x (* i (/ (- x sx)
+                                             pixels)))
+                           :y   (- y (* i (/ (- y sy)
+                                             pixels)))}))
+                   vec)))
+          (range n) angles)
+         vec)))
+
+(defn pixel-circles
+  [group]
+  (let [coords (pixel-coords group)]
+    (->> coords
+         (apply concat)
+         (map (fn [{:keys [x y]}]
+                [:circle {:cx           x
+                          :cy           y
+                          :fill         "#aaa"
+                          :fill-opacity "0.5"
+                          :r            5}] ))
+         (into [:g]))))
+
 (defn shifted-lines
   [{:keys [strips x1 x2 y1 y2] :as group} label]
   (let [n       (count strips)
         x-pitch (/ (- x2 x1) n)
         y-pitch (/ (- y2 y1) n)
         angles  (calc-angles group n)]
-    (into [:g [group-outline group]]
+    (into [:g
+           [group-outline group]
+           [pixel-circles group]]
           (map-indexed
            (fn [idx {:keys [len fc ch reverse?]}]
              (let [y      (* scale (+ y1 (* y-pitch (+ idx 0.5))))
@@ -167,16 +206,6 @@
                    sy     (- y (* len scale (Math/sin (nth angles idx))))
                    pixels (Math/ceil (* len pixel-per-m))]
                [:g {:fill hsl}
-                (into [:g]
-                      (map (fn [i]
-                             [:circle {:cx   (- x (* i (/ (- x sx)
-                                                          pixels)))
-                                       :cy   (- y (* i (/ (- y sy)
-                                                          pixels)))
-                                       :fill "#aaa"
-                                       :fill-opacity "0.5"
-                                       :r    5}])
-                           (range pixels)))
                 [:line (-> (if-not reverse?
                              {:x1 sx :y1 sy
                               :x2 x  :y2 y}
@@ -210,4 +239,5 @@
 
 (defn main
   [app-state]
-  [layout-2 app-state])
+  [:div
+   [layout-2 app-state]])
