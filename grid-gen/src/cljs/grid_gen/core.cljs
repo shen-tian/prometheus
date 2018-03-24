@@ -269,12 +269,8 @@
         n       (count strips)
         x-pitch (/ (- x2 x1) (dec n))
         y-pitch (/ (- y2 y1) (dec n))
-        longest (apply max (map :len strips))
-        far     (+ 20 (* longest scale))
         angles  (calc-angles group n)]
-    (into [:g
-           #_[:text {:x 20 :y (- y1 10)}
-            label]]
+    (into [:g]
           (map-indexed
            (fn [idx {:keys [len fc ch reverse?]}]
              (let [y (* scale (+ y1 (* y-pitch idx)))
@@ -286,20 +282,16 @@
                               hue ", 60%, "
                               light "%)")
                    sx    (- x (* len scale (Math/cos (nth angles idx))))
-                   sy    (- y (* len scale (Math/sin (nth angles idx))))
-                   ;;    (if-not reverse? (- x2 (* scale len)) x2)
-                   ;;    (if reverse? (- x2 (* scale len)) x2)
-                   ]
+                   sy    (- y (* len scale (Math/sin (nth angles idx))))]
                [:g {:fill hsl}
-                [:line {:x1    sx :y1 sy
-                        :x2    x                   :y2 y
-                        :style {:stroke       hsl
-                                :stroke-width 3
-                                :marker-end   "url(#arrow-marker)"}}]
-                #_[:text {:x     (+ far 15)
-                          :y     (+ y 5)
-                          :style {:fill :black}}
-                 (str len "m (" (Math/ceil (* len 7)) " px)")]]))
+                [:line (-> (if-not reverse?
+                             {:x1 sx :y1 sy
+                              :x2 x  :y2 y}
+                             {:x1 x  :y1 y
+                              :x2 sx :y2 sy}      )
+                           (assoc :style {:stroke       hsl
+                                          :stroke-width 3
+                                          :marker-end   "url(#arrow-marker)"}))]]))
            strips))))
 
 (defn layout-2
@@ -310,7 +302,7 @@
             :view-box "0 0 1000 2000"}
       [:defs arrow-marker]]
      (concat
-      (shifted-lines group-m "Group M")
+      #_(shifted-lines group-m "Group M")
       #_(shifted-lines group-n "Group N")
       (shifted-lines group-o "Group O")
       ;;(lines group-j 50  "Group J")
