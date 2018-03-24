@@ -1,5 +1,9 @@
 (ns grid-gen.layout-2)
 
+(def scale 100)
+
+(def pixel-per-m (/ 1 0.14))
+
 (def group-j
   {:x1     9 :y1 1
    :x2     9 :y2 2
@@ -11,7 +15,7 @@
 
 (def group-k
   {:x1     9 :y1 1
-   :x2     8 :y2 3
+   :x2     8 :y2 2
    :x3     1 :y3 1
    :x4     1 :y4 1.5
    :strips [{:len 5.96 :fc 3 :ch 4}
@@ -67,19 +71,6 @@
             {:len 4.32 :fc 6 :ch 5}
             {:len 3.59 :fc 6 :ch 5}]})
 
-
-(map (fn [[x y]]
-       [(/ x 407) (/ y 407)])
-     [[3250 5320]
-      [2870 5760]
-      [1010 3030]
-      [1010 3010]]
-     )
-
-(defn hyp [x y]
-  (Math/sqrt (+ (* x x) (* y y))))
-(/ (hyp 467 1970) 4.97)
-;; 407px per meter
 (defn length-check
   [{:keys [x1 x2 x3 x4
            y1 y2 y3 y4]}]
@@ -89,8 +80,6 @@
         dy2 (- y2 y4)]
     [(Math/sqrt (+ (* dx1 dx1) (* dy1 dy1)))
      (Math/sqrt (+ (* dx2 dx2) (* dy2 dy2)))]))
-
-(length-check group-o)
 
 (def arrow-marker
   [:marker
@@ -106,8 +95,7 @@
 
 (defn lines
   [{strips :strips} start-y label]
-  (let [scale   100
-        longest (apply max (map :len strips))
+  (let [longest (apply max (map :len strips))
         far     (+ 20 (* longest scale))]
     (into [:g
            [:text {:x 20 :y (- start-y 10)}
@@ -149,8 +137,7 @@
   [{:keys [x1 x2 x3 x4
            y1 y2 y3 y4]
     :as   group}]
-  (let [scale 100
-        d-str (str "M" (* scale x3) " " (* scale y3) " "
+  (let [d-str (str "M" (* scale x3) " " (* scale y3) " "
                    "L" (* scale x1) " " (* scale y1) " "
                    "L" (* scale x2) " " (* scale y2) " "
                    "L" (* scale x4) " " (* scale y4) " "
@@ -158,28 +145,38 @@
     [:path {:d            d-str
             :fill         "#eee"
             :fill-opacity "0.8"
-            :stroke "#ccc"}]))
+            :stroke       "#ccc"}]))
 
 (defn shifted-lines
   [{:keys [strips x1 x2 y1 y2] :as group} label]
-  (let [scale   100
-        n       (count strips)
+  (let [n       (count strips)
         x-pitch (/ (- x2 x1) n)
         y-pitch (/ (- y2 y1) n)
         angles  (calc-angles group n)]
     (into [:g [group-outline group]]
           (map-indexed
            (fn [idx {:keys [len fc ch reverse?]}]
-             (let [y (* scale (+ y1 (* y-pitch (+ idx 0.5))))
-                   x (* scale (+ x1 (* x-pitch (+ idx 0.5))))
-                   hue   (if ch (* 45 ch) 0)
-                   light (if ch (if (even? ch) 40 80) 60)
-                   hsl   (str "hsl("
-                              hue ", 60%, "
-                              light "%)")
-                   sx    (- x (* len scale (Math/cos (nth angles idx))))
-                   sy    (- y (* len scale (Math/sin (nth angles idx))))]
+             (let [y      (* scale (+ y1 (* y-pitch (+ idx 0.5))))
+                   x      (* scale (+ x1 (* x-pitch (+ idx 0.5))))
+                   hue    (if ch (* 45 ch) 0)
+                   light  (if ch (if (even? ch) 40 80) 60)
+                   hsl    (str "hsl("
+                               hue ", 60%, "
+                               light "%)")
+                   sx     (- x (* len scale (Math/cos (nth angles idx))))
+                   sy     (- y (* len scale (Math/sin (nth angles idx))))
+                   pixels (Math/ceil (* len pixel-per-m))]
                [:g {:fill hsl}
+                (into [:g]
+                      (map (fn [i]
+                             [:circle {:cx   (- x (* i (/ (- x sx)
+                                                          pixels)))
+                                       :cy   (- y (* i (/ (- y sy)
+                                                          pixels)))
+                                       :fill "#aaa"
+                                       :fill-opacity "0.5"
+                                       :r    5}])
+                           (range pixels)))
                 [:line (-> (if-not reverse?
                              {:x1 sx :y1 sy
                               :x2 x  :y2 y}
@@ -187,26 +184,30 @@
                               :x2 sx :y2 sy}      )
                            (assoc :style {:stroke       hsl
                                           :stroke-width 3
-                                          :marker-end   "url(#arrow-marker)"}))]]))
+                                          :marker-end   "url(#arrow-marker)"}))]
+                ]))
            strips))))
 
 (defn layout-2
   [ratom]
-  (let [scale 100]
-    (into
-     [:svg {:width 600
-            :view-box "0 0 1000 2000"}
-      [:defs arrow-marker]]
-     (concat
-      #_(shifted-lines group-m "Group M")
-      #_(shifted-lines group-n "Group N")
-      (shifted-lines group-k "Group K")
-      (shifted-lines group-o "Group O")
+  (into
+   [:svg {:width 600
+          :view-box "0 0 1000 2000"}
+    [:defs arrow-marker]]
+   (concat
+    #_(shifted-lines group-m "Group M")
+    #_(shifted-lines group-n "Group N")
+    (shifted-lines group-k "Group K")
+    (shifted-lines group-o "Group O")
 
-      ;;(lines group-j 50  "Group J")
-      ;;(lines group-k 200 "Group K")
-      ;;(lines group-l 350 "Group L")
-      ;;(lines group-m 500 "Group M")
-      ;;(lines group-n 650 "Group N")
-      ;;(lines group-o 800 "Group O")
-      ))))
+    ;;(lines group-j 50  "Group J")
+    ;;(lines group-k 200 "Group K")
+    ;;(lines group-l 350 "Group L")
+    ;;(lines group-m 500 "Group M")
+    ;;(lines group-n 650 "Group N")
+    (lines group-o 800 "Group O")
+    )))
+
+(defn main
+  [app-state]
+  [layout-2 app-state])

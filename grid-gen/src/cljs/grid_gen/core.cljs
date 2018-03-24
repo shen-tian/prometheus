@@ -128,8 +128,8 @@
     [:button.pure-button {:on-click #(swap! ratom assoc :page 2)} "2"]]
    (case (:page @ratom)
      1 [layout-1 ratom]
-     2 [layout-2/layout-2 ratom]
-     [layout-2/layout-2 ratom])])
+     2 [layout-2/main ratom]
+     [layout-2/main ratom])])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Initialize App
