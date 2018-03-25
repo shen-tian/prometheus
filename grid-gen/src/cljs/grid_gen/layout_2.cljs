@@ -1,9 +1,14 @@
 (ns grid-gen.layout-2
-  (:require [reagent.core :as reagent]))
+  (:require [reagent.core :as reagent]
+            [grid-gen.utils :as utils]))
 
 (def scale 100)
 
 (def pixel-per-m (/ 1 0.14))
+
+(def repeater-config
+  [{:fc 3 :ch 4 :n 2}
+   {:fc 4 :ch 2 :n 1}])
 
 (def group-j
   {:x1     9 :y1 1
@@ -164,7 +169,7 @@
       (< (:fc cx) (:fc cy))
       (if (not= (:ch cx) (:ch cy))
         (< (:ch cx) (:ch cy))
-        (< (:strip cx) (:strip cy))))))
+        (< (or (:strip cx) 0) (or (:strip cy) 0))))))
 
 (defn global-index
   [strip-coords]
@@ -272,28 +277,55 @@
                 ]))
            strips))))
 
+(def repeaters
+  (->> repeater-config
+       (map (fn [{:keys [fc ch n]}]
+              (vec (repeat n {:x 0 :y 0 :fc fc :ch ch :strip -1}))))
+       vec))
+
+(defn transform-to-unit
+  [x y r max-x max-y]
+  [(- (* (/ x max-x) 2 r) r)
+   (- (* (/ y max-y) 2 r) r)])
+
+(defn pixels->edn
+  [pixels]
+  (->> pixels
+       (map (fn [{:keys [x y]}]
+              (let [[tx ty] (transform-to-unit x y 5 1000 1000)]
+                {:point [tx ty 0]})))
+       vec))
+
+(defn edn->pstring
+  [edn]
+  (.stringify js/JSON (clj->js edn) nil 2))
+
 (defn layout-2
-  [ratom]
-  (let [groups [group-k
-                group-l]]
-    (into
-     [:svg {:width 600
-            :view-box "0 0 1000 2000"}
-      [:defs arrow-marker]]
-     (conj
-      (->> groups
-           (map #(shifted-lines % nil))
-           vec)
-      (->> groups
-           (map pixel-coords)
-           (apply concat)
-           global-index
-           apply-index
-           pixel-circles)))))
+  [groups pixels]
+  (into
+   [:svg {:width    600
+          :view-box "0 0 1000 2000"}
+    [:defs arrow-marker]]
+   (concat
+    (->> groups
+         (map #(shifted-lines % nil))
+         vec)
+    (->> pixels
+         pixel-circles
+         vec))))
 
 (defn main
   [app-state]
-  [:div
-   [:div [:pre @text]]
-   [layout-2 app-state]
-   #_[:div [:pre (pixel-coords group-k)]]])
+  (let [groups [group-k
+                group-l]
+        pixels (->> groups
+                    (map pixel-coords)
+                    (apply concat)
+                    (concat repeaters) ;; inert repeater pixels
+                    global-index
+                    apply-index)]
+    [:div
+     [:div [:pre @text]]
+     [layout-2 groups pixels]
+     [utils/clipboard-button "Click!"
+      (edn->pstring (pixels->edn pixels))]]))
