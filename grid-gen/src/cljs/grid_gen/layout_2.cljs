@@ -10,6 +10,106 @@
   [{:fc 3 :ch 4 :n 2}
    {:fc 4 :ch 2 :n 1}])
 
+(def group-a
+  {:x1     7.7 :y1 0.3
+   :x2     8.3 :y2 0.8
+   :x3     6.3 :y3 1.0
+   :x4     5.5 :y4 1.5
+   :strips [{:len 1.5 :fc 0 :ch 0 :strip 0}
+            {:len 2.1 :fc 0 :ch 0 :strip 1 :reverse? true}
+            {:len 2.5 :fc 0 :ch 0 :strip 2}
+            {:len 2.6 :fc 0 :ch 0 :strip 3 :reverse? true}]})
+
+(def group-b
+  {:x1     8.3 :y1 0.8
+   :x2     8.5 :y2 1.8
+   :x3     5.5 :y3 1.5
+   :x4     4.4 :y4 2.3
+   :strips [{:len 2.8 :fc 0 :ch 1 :strip 0}
+            {:len 3.4 :fc 0 :ch 1 :strip 1 :reverse? true}
+            {:len 3.7 :fc 0 :ch 1 :strip 2}
+            {:len 3.95 :fc 0 :ch 2 :strip 0}
+            {:len 4.10 :fc 0 :ch 2 :strip 1 :reverse? true}]})
+
+(def group-c
+  {:x1     8.5 :y1 1.8
+   :x2     8.1 :y2 2.8
+   :x3     4.4 :y3 2.3
+   :x4     3.8 :y4 2.6
+   :strips [{:len 4.20 :fc 0 :ch 3 :strip 0}
+            {:len 4.35 :fc 0 :ch 3 :strip 1 :reverse? true}
+            {:len 4.38 :fc 0 :ch 4 :strip 0}
+            {:len 4.48 :fc 0 :ch 4 :strip 1 :reverse? true}
+            {:len 4.35 :fc 0 :ch 5}]})
+
+(def group-d
+  {:x1     8.1 :y1 2.8
+   :x2     7.5 :y2 3.6
+   :x3     3.8 :y3 2.6
+   :x4     3.3 :y4 3.1
+   :strips [{:len 4.29 :fc 0 :ch 6 :strip 0}
+            {:len 4.50 :fc 0 :ch 6 :strip 1 :reverse? true}
+            {:len 4.50 :fc 0 :ch 7 :strip 0}
+            {:len 4.50 :fc 0 :ch 7 :strip 1 :reverse? true}
+            {:len 4.43 :fc 0 :ch 7 :strip 2}]})
+
+(def group-e
+  {:x1     7.5 :y1 3.6
+   :x2     6.9 :y2 4.6
+   :x3     3.3 :y3 3.1
+   :x4     2.6 :y4 3.6
+   :strips [{:len 4.35 :fc 1 :ch 0 :strip 0}
+            {:len 4.53 :fc 1 :ch 1 :strip 1 :reverse? true}
+            {:len 4.53 :fc 1 :ch 2 :strip 0}
+            {:len 4.50 :fc 1 :ch 2 :strip 1 :reverse? true}
+            {:len 4.52 :fc 1 :ch 3 :strip 0}]})
+
+(def group-f
+  {:x1     6.9 :y1 4.6
+   :x2     6.8 :y2 5.6
+   :x3     2.6 :y3 3.6
+   :x4     2.1 :y4 4.1
+   :strips [{:len 4.44 :fc 1 :ch 3 :strip 1 :reverse? true}
+            {:len 4.67 :fc 1 :ch 4 :strip 0}
+            {:len 4.78 :fc 1 :ch 4 :strip 1 :reverse? true}
+            {:len 4.90 :fc 1 :ch 5 :strip 0}
+            {:len 4.99 :fc 1 :ch 5 :strip 1 :reverse? true}]})
+
+(def group-g
+  {:x1     6.8 :y1 5.6
+   :x2     6.4 :y2 6.4
+   :x3     2.1 :y3 4.1
+   :x4     1.5 :y4 4.7
+   :strips [{:len 5.02 :fc 1 :ch 6 :strip 0}
+            {:len 5.16 :fc 1 :ch 6 :strip 1 :reverse? true}
+            {:len 5.18 :fc 1 :ch 7 :strip 0}
+            {:len 5.20 :fc 1 :ch 7 :strip 1 :reverse? true}
+            {:len 5.16 :fc 1 :ch 7 :strip 2}]})
+
+(def group-h
+  {:x1     6.4 :y1 6.4
+   :x2     5.8 :y2 7.2
+   :x3     1.5 :y3 4.7
+   :x4     0.9 :y4 5.4
+   :strips [{:len 5.15 :fc 2 :ch 0 :strip 0}
+            {:len 5.25 :fc 2 :ch 0 :strip 1 :reverse? true}
+            {:len 5.27 :fc 2 :ch 2 :strip 0}
+            {:len 5.29 :fc 2 :ch 2 :strip 1 :reverse? true}
+            {:len 5.21 :fc 2 :ch 3 :strip 0}
+            {:len 5.34 :fc 2 :ch 3 :strip 1 :reverse? true}]})
+
+(def group-i
+  {:x1     5.8 :y1 7.2
+   :x2     5.4 :y2 8.1
+   :x3     0.9 :y3 5.4
+   :x4     0.5 :y4 6.0
+   :strips [{:len 5.26 :fc 2 :ch 4 :strip 0}
+            {:len 5.36 :fc 2 :ch 4 :strip 1 :reverse? true}
+            {:len 5.38 :fc 2 :ch 5 :strip 0}
+            {:len 5.38 :fc 2 :ch 5 :strip 1 :reverse? true}
+            {:len 5.36 :fc 2 :ch 6 :strip 0}
+            {:len 5.32 :fc 2 :ch 6 :strip 1 :reverse? true}]})
+
 (def group-j
   {:x1     5.4 :y1 8.1
    :x2     5.7 :y2 9.3
@@ -55,7 +155,7 @@
             {:len 7.04 :fc 5 :ch 3}
             {:len 7.86 :fc 5 :ch 4}
             {:len 6.19 :fc 5 :ch 5}
-            #_{:len 7.50 :fc 5 :ch 6}]})
+            {:len 7.50 :fc 5 :ch 6}]})
 
 (def group-n
   {:x1     4.4 :y1 12.2
@@ -294,7 +394,7 @@
   [pixels]
   (->> pixels
        (map (fn [{:keys [x y]}]
-              (let [[tx ty] (transform-to-unit x y 5 1000 1000)]
+              (let [[tx ty] (transform-to-unit x y 5 1000 1400)]
                 {:point [tx ty 0]})))
        vec))
 
@@ -306,7 +406,7 @@
   [groups pixels]
   (into
    [:svg {:width    600
-          :view-box "0 0 900 1400"}
+          :view-box "0 0 1000 1400"}
     [:defs arrow-marker]]
    (concat
     (->> groups
@@ -318,7 +418,16 @@
 
 (defn main
   [app-state]
-  (let [groups [group-j
+  (let [groups [group-a
+                group-b
+                group-c
+                group-d
+                group-e
+                group-f
+                group-g
+                group-h
+                group-i
+                group-j
                 group-k
                 group-l
                 group-m
