@@ -1,4 +1,5 @@
-(ns grid-gen.layout-2)
+(ns grid-gen.layout-2
+  (:require [reagent.core :as reagent]))
 
 (def scale 100)
 
@@ -20,13 +21,15 @@
    :x4     1 :y4 1.5
    :strips [{:len 5.96 :fc 3 :ch 4}
             {:len 5.80 :fc 3 :ch 5}
-            {:len 4.38 :fc 3 :ch 6 :reverse? true}
-            {:len 5.90 :fc 3 :ch 6}
+            {:len 4.38 :fc 3 :ch 6 :strip 1 :reverse? true}
+            {:len 5.90 :fc 3 :ch 6 :strip 0}
             {:len 4.61 :fc 3 :ch 7}]})
 
 (def group-l
-  {:x1     9 :y1 1
-   :x2     9 :y2 2
+  {:x1     8 :y1 2
+   :x2     9 :y2 4
+   :x3     1 :y3 1.5
+   :x4     1 :y4 2
    :strips [{:len 5.73 :fc 4 :ch 0}
             {:len 4.36 :fc 4 :ch 1}
             {:len 5.15 :fc 4 :ch 2}
@@ -147,6 +150,30 @@
             :fill-opacity "0.8"
             :stroke       "#ccc"}]))
 
+(defn orientate
+  [reverse? coords]
+  (if reverse?
+    coords
+    (reverse coords)))
+
+(defn comp-fn
+  [strip-x strip-y]
+  (let [cx (first strip-x)
+        cy (first strip-y)]
+    (if (not= (:fc cx) (:fc cy))
+      (< (:fc cx) (:fc cy))
+      (if (not= (:ch cx) (:ch cy))
+        (< (:ch cx) (:ch cy))
+        (< (:strip cx) (:strip cy))))))
+
+(defn global-index
+  [strip-coords]
+  (->> strip-coords
+       (sort comp-fn)
+       (map-indexed (fn [idx strips]
+                    (vec (map #(assoc % :g-strip idx) strips))))
+       vec))
+
 (defn pixel-coords
   [{:keys [strips x1 x2 y1 y2] :as group}]
   (let [n       (count strips)
@@ -155,7 +182,7 @@
         angles  (calc-angles group n)]
     (->> strips
          (map
-          (fn [idx angle {:keys [len fc ch reverse?]}]
+          (fn [idx angle {:keys [len fc ch strip reverse?]}]
             (let [y      (* scale (+ y1 (* y-pitch (+ idx 0.5))))
                   x      (* scale (+ x1 (* x-pitch (+ idx 0.5))))
                   sx     (- x (* len scale (Math/cos angle)))
@@ -163,26 +190,54 @@
                   pixels (Math/ceil (* len pixel-per-m))]
               (->> (range pixels)
                    (map (fn [i]
-                          {:x   (- x (* i (/ (- x sx)
-                                             pixels)))
-                           :y   (- y (* i (/ (- y sy)
-                                             pixels)))}))
+                          {:x  (- x (* i (/ (- x sx)
+                                            pixels)))
+                           :y  (- y (* i (/ (- y sy)
+                                            pixels)))
+                           :fc fc
+                           :ch ch
+                           :strip strip}))
+                   (orientate reverse?)
+                   #_(map-indexed (fn [idx pixel]
+                                  (assoc pixel :strip-idx idx)))
                    vec)))
           (range n) angles)
          vec)))
 
+(defonce text (reagent/atom ""))
+
+(defn round
+  [x]
+  (/ (Math/round (* 100 x)) 100))
+
 (defn pixel-circles
-  [group]
-  (let [coords (pixel-coords group)]
-    (->> coords
-         (apply concat)
-         (map (fn [{:keys [x y]}]
-                [:circle {:cx           x
-                          :cy           y
-                          :fill         "#aaa"
-                          :fill-opacity "0.5"
-                          :r            5}] ))
-         (into [:g]))))
+  [coords]
+  (->> coords
+       ;;(apply concat)
+       (map (fn [{:keys [x y fc ch strip g-strip idx]}]
+              (let [prop-str (str "fc: " fc " "
+                                  "ch: " ch " "
+                                  "x: " (round x) " "
+                                  "y: " (round y) " "
+                                  (when strip
+                                    (str "strip: " strip " "))
+                                  (when idx
+                                    (str "idx: " idx " "))
+                                  "g-strip: " g-strip)]
+                [:circle {:cx            x
+                          :cy            y
+                          :fill          "#aaa"
+                          :fill-opacity  "0.5"
+                          :r             5
+                          :on-mouse-over #(reset! text prop-str)}])))
+       (into [:g])))
+
+(defn apply-index
+  [coords]
+  (vec (map-indexed
+        (fn [idx coord]
+          (assoc coord :idx idx))
+        (apply concat coords))))
 
 (defn shifted-lines
   [{:keys [strips x1 x2 y1 y2] :as group} label]
@@ -192,7 +247,7 @@
         angles  (calc-angles group n)]
     (into [:g
            [group-outline group]
-           [pixel-circles group]]
+           #_[pixel-circles group]]
           (map-indexed
            (fn [idx {:keys [len fc ch reverse?]}]
              (let [y      (* scale (+ y1 (* y-pitch (+ idx 0.5))))
@@ -219,25 +274,26 @@
 
 (defn layout-2
   [ratom]
-  (into
-   [:svg {:width 600
-          :view-box "0 0 1000 2000"}
-    [:defs arrow-marker]]
-   (concat
-    #_(shifted-lines group-m "Group M")
-    #_(shifted-lines group-n "Group N")
-    (shifted-lines group-k "Group K")
-    (shifted-lines group-o "Group O")
-
-    ;;(lines group-j 50  "Group J")
-    ;;(lines group-k 200 "Group K")
-    ;;(lines group-l 350 "Group L")
-    ;;(lines group-m 500 "Group M")
-    ;;(lines group-n 650 "Group N")
-    (lines group-o 800 "Group O")
-    )))
+  (let [groups [group-k
+                group-l]]
+    (into
+     [:svg {:width 600
+            :view-box "0 0 1000 2000"}
+      [:defs arrow-marker]]
+     (conj
+      (->> groups
+           (map #(shifted-lines % nil))
+           vec)
+      (->> groups
+           (map pixel-coords)
+           (apply concat)
+           global-index
+           apply-index
+           pixel-circles)))))
 
 (defn main
   [app-state]
   [:div
-   [layout-2 app-state]])
+   [:div [:pre @text]]
+   [layout-2 app-state]
+   #_[:div [:pre (pixel-coords group-k)]]])
