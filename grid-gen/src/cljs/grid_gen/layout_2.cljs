@@ -424,7 +424,7 @@
           :view-box "0 0 1000 1400"}
     [:defs arrow-marker]]
    (concat
-    #_(->> groups
+    (->> groups
          (map #(shifted-lines % nil))
          vec)
     (->> pixels
@@ -468,7 +468,7 @@
                     apply-index)]
     [:div
      [:div [:pre @text]]
-     ;;[layout-2 groups pixels]
+     [layout-2 groups pixels]
      [layout-logical groups]
      [utils/clipboard-button "Click!"
       (edn->pstring (pixels->edn pixels))]]))

@@ -14,6 +14,7 @@ void setup()
 
   // Connect to the local instance of fcserver. You can change this line to connect to another computer's fcserver
   opc = new OPC(this, "127.0.0.1", 7890);
+  opc.showLocations(false);
 
   JSONArray layout = loadJSONArray("layout.json");
   
