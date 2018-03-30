@@ -11,7 +11,8 @@
    {:fc 4 :ch 2 :n 1}])
 
 (def group-a
-  {:x1     7.7 :y1 0.3
+  {:label  "Group A"
+   :x1     7.7 :y1 0.3
    :x2     8.3 :y2 0.8
    :x3     6.3 :y3 1.0
    :x4     5.5 :y4 1.5
@@ -21,7 +22,8 @@
             {:len 2.6 :fc 0 :ch 0 :strip 3 :reverse? true}]})
 
 (def group-b
-  {:x1     8.3 :y1 0.8
+  {:label  "Group B"
+   :x1     8.3 :y1 0.8
    :x2     8.5 :y2 1.8
    :x3     5.5 :y3 1.5
    :x4     4.4 :y4 2.3
@@ -32,7 +34,8 @@
             {:len 4.10 :fc 0 :ch 2 :strip 1 :reverse? true}]})
 
 (def group-c
-  {:x1     8.5 :y1 1.8
+  {:label "Group C"
+   :x1     8.5 :y1 1.8
    :x2     8.1 :y2 2.8
    :x3     4.4 :y3 2.3
    :x4     3.8 :y4 2.6
@@ -43,7 +46,8 @@
             {:len 4.35 :fc 0 :ch 5}]})
 
 (def group-d
-  {:x1     8.1 :y1 2.8
+  {:label  "Group D"
+   :x1     8.1 :y1 2.8
    :x2     7.5 :y2 3.6
    :x3     3.8 :y3 2.6
    :x4     3.3 :y4 3.1
@@ -54,7 +58,8 @@
             {:len 4.43 :fc 0 :ch 7 :strip 2}]})
 
 (def group-e
-  {:x1     7.5 :y1 3.6
+  {:label  "Group E"
+   :x1     7.5 :y1 3.6
    :x2     6.9 :y2 4.6
    :x3     3.3 :y3 3.1
    :x4     2.6 :y4 3.6
@@ -65,7 +70,8 @@
             {:len 4.52 :fc 1 :ch 3 :strip 0}]})
 
 (def group-f
-  {:x1     6.9 :y1 4.6
+  {:label  "Group F"
+   :x1     6.9 :y1 4.6
    :x2     6.8 :y2 5.6
    :x3     2.6 :y3 3.6
    :x4     2.1 :y4 4.1
@@ -76,7 +82,8 @@
             {:len 4.99 :fc 1 :ch 5 :strip 1 :reverse? true}]})
 
 (def group-g
-  {:x1     6.8 :y1 5.6
+  {:label  "Group G"
+   :x1     6.8 :y1 5.6
    :x2     6.4 :y2 6.4
    :x3     2.1 :y3 4.1
    :x4     1.5 :y4 4.7
@@ -87,7 +94,8 @@
             {:len 5.16 :fc 1 :ch 7 :strip 2}]})
 
 (def group-h
-  {:x1     6.4 :y1 6.4
+  {:label  "Group H"
+   :x1     6.4 :y1 6.4
    :x2     5.8 :y2 7.2
    :x3     1.5 :y3 4.7
    :x4     0.9 :y4 5.4
@@ -99,7 +107,8 @@
             {:len 5.34 :fc 2 :ch 3 :strip 1 :reverse? true}]})
 
 (def group-i
-  {:x1     5.8 :y1 7.2
+  {:label  "Group I"
+   :x1     5.8 :y1 7.2
    :x2     5.4 :y2 8.1
    :x3     0.9 :y3 5.4
    :x4     0.5 :y4 6.0
@@ -111,7 +120,8 @@
             {:len 5.32 :fc 2 :ch 6 :strip 1 :reverse? true}]})
 
 (def group-j
-  {:x1     5.4 :y1 8.1
+  {:label  "Group J"
+   :x1     5.4 :y1 8.1
    :x2     5.7 :y2 9.3
    :x3     0.5 :y3 6.0
    :x4     0.5 :y4 6.4
@@ -122,7 +132,8 @@
             {:len 4.63 :fc 3 :ch 3 :reverse? true}]})
 
 (def group-k
-  {:x1     5.7 :y1 9.3
+  {:label  "Group K"
+   :x1     5.7 :y1 9.3
    :x2     5.3 :y2 10.3
    :x3     0.5 :y3 6.4
    :x4     0.5 :y4 6.4
@@ -133,7 +144,8 @@
             {:len 4.61 :fc 3 :ch 7}]})
 
 (def group-l
-  {:x1     5.3 :y1 10.3
+  {:label  "Group L"
+   :x1     5.3 :y1 10.3
    :x2     5.0 :y2 11.6
    :x3     0.5 :y3 6.4
    :x4     0.5 :y4 6.5
@@ -145,7 +157,8 @@
             {:len 3.56 :fc 4 :ch 3 :reverse? true}]})
 
 (def group-m
-  {:x1     6.0 :y1 12.8
+  {:label  "Group M"
+   :x1     6.0 :y1 12.8
    :x2     5.3 :y2 13.4
    :x3     0.5 :y3  6.5
    :x4     0.5 :y4  6.6
@@ -158,7 +171,8 @@
             {:len 7.50 :fc 5 :ch 6}]})
 
 (def group-n
-  {:x1     4.4 :y1 12.2
+  {:label  "Group N"
+   :x1     4.4 :y1 12.2
    :x2     3.0 :y2 12.1
    :x3     0.5  :y3 6.6
    :x4     0.5  :y4 6.7
@@ -171,7 +185,8 @@
             {:len 5.37 :fc 6 :ch 3}]})
 
 (def group-o
-  {:x1     3.0 :y1 12.1
+  {:label  "Group O"
+   :x1     3.0 :y1 12.1
    :x2     1.9 :y2 12.2
    :x3     0.5 :y3 6.7
    :x4     0.5 :y4 6.8
@@ -204,7 +219,7 @@
     {:d "M0,0 L0,4 L4,2 L0,0"}]])
 
 (defn lines
-  [{strips :strips} start-y label]
+  [{:keys [strips label]} start-y]
   (let [longest (apply max (map :len strips))
         far     (+ 20 (* longest scale))]
     (into [:g
@@ -409,12 +424,24 @@
           :view-box "0 0 1000 1400"}
     [:defs arrow-marker]]
    (concat
-    (->> groups
+    #_(->> groups
          (map #(shifted-lines % nil))
          vec)
     (->> pixels
          pixel-circles
          vec))))
+
+(defn layout-logical
+  [groups]
+  (into
+   [:svg {:width    600
+          :view-box "0 0 1000 2000"}]
+   (->> groups
+        (map-indexed (fn [idx group]
+                       (lines group
+                              (+ 25
+                                 (* 125 idx)))))
+        vec)))
 
 (defn main
   [app-state]
@@ -441,6 +468,7 @@
                     apply-index)]
     [:div
      [:div [:pre @text]]
-     [layout-2 groups pixels]
+     ;;[layout-2 groups pixels]
+     [layout-logical groups]
      [utils/clipboard-button "Click!"
       (edn->pstring (pixels->edn pixels))]]))
