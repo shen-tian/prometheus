@@ -16,10 +16,9 @@
    :x2     8.3 :y2 0.8
    :x3     6.3 :y3 1.0
    :x4     5.5 :y4 1.5
-   :strips [{:len 1.5 :fc 0 :ch 0 :strip 0}
-            {:len 2.1 :fc 0 :ch 0 :strip 1 :reverse? true}
-            {:len 2.5 :fc 0 :ch 0 :strip 2}
-            {:len 2.6 :fc 0 :ch 0 :strip 3 :reverse? true}]})
+   :strips [{:len 1.5 :fc 0 :ch 0 :strip 3 :reverse? true}
+            {:len 2.1 :fc 0 :ch 0 :strip 2}
+            {:len 2.5 :fc 0 :ch 0 :strip 1 :reverse? true}]})
 
 (def group-b
   {:label  "Group B"
@@ -27,23 +26,23 @@
    :x2     8.5 :y2 1.8
    :x3     5.5 :y3 1.5
    :x4     4.4 :y4 2.3
-   :strips [{:len 2.8 :fc 0 :ch 1 :strip 0}
-            {:len 3.4 :fc 0 :ch 1 :strip 1 :reverse? true}
-            {:len 3.7 :fc 0 :ch 1 :strip 2}
-            {:len 3.95 :fc 0 :ch 2 :strip 0}
-            {:len 4.10 :fc 0 :ch 2 :strip 1 :reverse? true}]})
+   :strips [{:len 2.8 :fc 0 :ch 0 :strip 0}
+            {:len 3.15 :fc 0 :ch 1 :strip 1 :reverse? true}
+            {:len 3.50 :fc 0 :ch 1 :strip 0}
+            {:len 3.75 :fc 0 :ch 2 :strip 1 :reverse? true}
+            {:len 4.00 :fc 0 :ch 2 :strip 0}]})
 
 (def group-c
-  {:label "Group C"
+  {:label  "Group C"
    :x1     8.5 :y1 1.8
    :x2     8.1 :y2 2.8
    :x3     4.4 :y3 2.3
    :x4     3.8 :y4 2.6
-   :strips [{:len 4.20 :fc 0 :ch 3 :strip 0}
-            {:len 4.35 :fc 0 :ch 3 :strip 1 :reverse? true}
-            {:len 4.38 :fc 0 :ch 4 :strip 0}
-            {:len 4.48 :fc 0 :ch 4 :strip 1 :reverse? true}
-            {:len 4.35 :fc 0 :ch 5}]})
+   :strips [{:len 4.10 :fc 0 :ch 3 :strip 0}
+            {:len 3.50 :fc 0 :ch 3 :strip 1 :reverse? true}
+            {:len 4.00 :fc 0 :ch 4 :strip 1 :reverse? true}
+            {:len 4.20 :fc 0 :ch 4 :strip 0}
+            {:len 4.0 :fc 0 :ch 5 :strip 1 :reverse? true}]})
 
 (def group-d
   {:label  "Group D"
@@ -51,11 +50,11 @@
    :x2     7.5 :y2 3.6
    :x3     3.8 :y3 2.6
    :x4     3.3 :y4 3.1
-   :strips [{:len 4.29 :fc 0 :ch 6 :strip 0}
-            {:len 4.50 :fc 0 :ch 6 :strip 1 :reverse? true}
-            {:len 4.50 :fc 0 :ch 7 :strip 0}
-            {:len 4.50 :fc 0 :ch 7 :strip 1 :reverse? true}
-            {:len 4.43 :fc 0 :ch 7 :strip 2}]})
+   :strips [{:len 4.20 :fc 0 :ch 5 :strip 0}
+            {:len 4.20 :fc 0 :ch 6 :strip 1 :reverse? true}
+            {:len 4.25 :fc 0 :ch 6 :strip 0}
+            {:len 4.10 :fc 0 :ch 7 :strip 1 :reverse? true}
+            {:len 4.20 :fc 0 :ch 7 :strip 2}]})
 
 (def group-e
   {:label  "Group E"
@@ -63,11 +62,11 @@
    :x2     6.9 :y2 4.6
    :x3     3.3 :y3 3.1
    :x4     2.6 :y4 3.6
-   :strips [{:len 4.35 :fc 1 :ch 0 :strip 0}
-            {:len 4.53 :fc 1 :ch 1 :strip 1 :reverse? true}
-            {:len 4.53 :fc 1 :ch 2 :strip 0}
-            {:len 4.50 :fc 1 :ch 2 :strip 1 :reverse? true}
-            {:len 4.52 :fc 1 :ch 3 :strip 0}]})
+   :strips [{:len 4.35 :fc 1 :ch 0 :strip 1 :reverse? true}
+            {:len 4.40 :fc 1 :ch 0 :strip 0}
+            {:len 4.53 :fc 1 :ch 1 :strip 0}
+            {:len 4.50 :fc 1 :ch 1 :strip 1 :reverse? true}
+            {:len 4.52 :fc 1 :ch 2 :strip 0}]})
 
 (def group-f
   {:label  "Group F"
@@ -75,11 +74,11 @@
    :x2     6.8 :y2 5.6
    :x3     2.6 :y3 3.6
    :x4     2.1 :y4 4.1
-   :strips [{:len 4.44 :fc 1 :ch 3 :strip 1 :reverse? true}
-            {:len 4.67 :fc 1 :ch 4 :strip 0}
-            {:len 4.78 :fc 1 :ch 4 :strip 1 :reverse? true}
-            {:len 4.90 :fc 1 :ch 5 :strip 0}
-            {:len 4.99 :fc 1 :ch 5 :strip 1 :reverse? true}]})
+   :strips [{:len 4.44 :fc 1 :ch 3 :strip 0}
+            {:len 4.45 :fc 1 :ch 3 :strip 1 :reverse? true}
+            {:len 4.65 :fc 1 :ch 4 :strip 0}
+            {:len 4.10 :fc 1 :ch 4 :strip 1 :reverse? true}
+            {:len 4.85 :fc 1 :ch 5 :strip 0}]})
 
 (def group-g
   {:label  "Group G"
@@ -244,7 +243,7 @@
                 [:text {:x     (+ far 15)
                         :y     (+ y 5)
                         :style {:fill :black}}
-                 (str len "m (" (Math/ceil (* len 7)) " px)")]]))
+                 (str len "m (" (Math/ceil (* len pixel-per-m)) " px)")]]))
            strips))))
 
 (defn calc-angles
@@ -305,19 +304,19 @@
     (->> strips
          (map
           (fn [idx angle {:keys [len fc ch strip reverse?]}]
-            (let [y      (* scale (+ y1 (* y-pitch (+ idx 0.5))))
-                  x      (* scale (+ x1 (* x-pitch (+ idx 0.5))))
-                  sx     (- x (* len scale (Math/cos angle)))
-                  sy     (- y (* len scale (Math/sin angle)))
-                  pixels (Math/ceil (* len pixel-per-m))]
+            (let [y       (* scale (+ y1 (* y-pitch (+ idx 0.5))))
+                  x       (* scale (+ x1 (* x-pitch (+ idx 0.5))))
+                  sx      (- x (* len scale (Math/cos angle)))
+                  sy      (- y (* len scale (Math/sin angle)))
+                  pixels  (inc (Math/ceil (* len pixel-per-m)))
+                  x-pitch (/ (- x sx) (dec pixels))
+                  y-pitch (/ (- y sy) (dec pixels))]
               (->> (range pixels)
                    (map (fn [i]
-                          {:x  (- x (* i (/ (- x sx)
-                                            pixels)))
-                           :y  (- y (* i (/ (- y sy)
-                                            pixels)))
-                           :fc fc
-                           :ch ch
+                          {:x     (- x (* i x-pitch))
+                           :y     (- y (* i y-pitch))
+                           :fc    fc
+                           :ch    ch
                            :strip strip}))
                    (orientate reverse?)
                    #_(map-indexed (fn [idx pixel]
@@ -417,6 +416,8 @@
   [edn]
   (.stringify js/JSON (clj->js edn) nil 2))
 
+(defonce lines? (reagent/atom true))
+
 (defn layout-2
   [groups pixels]
   (into
@@ -424,9 +425,10 @@
           :view-box "0 0 1000 1400"}
     [:defs arrow-marker]]
    (concat
-    (->> groups
-         (map #(shifted-lines % nil))
-         vec)
+    (when @lines?
+      (->> groups
+           (map #(shifted-lines % nil))
+           vec))
     (->> pixels
          pixel-circles
          vec))))
@@ -468,6 +470,11 @@
                     apply-index)]
     [:div
      [:div [:pre @text]]
+     [:div
+      [:input.toggle {:type :checkbox
+                      :value @lines?
+                      :on-change #(swap! lines? not)}]
+      [:label {:for "toggle"} "Show lines"]]
      [layout-2 groups pixels]
      [layout-logical groups]
      [utils/clipboard-button "Click!"
