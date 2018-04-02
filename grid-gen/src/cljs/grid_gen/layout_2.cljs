@@ -75,8 +75,8 @@
    :x3     2.6 :y3 3.6
    :x4     2.1 :y4 4.1
    :strips [{:len 4.44 :fc 1 :ch 2 :strip 0}
-            {:len 4.15 :fc 1 :ch 3 :strip 1 :reverse? true}
-            {:len 4.65 :fc 1 :ch 3 :strip 0}
+            {:len 4.30 :fc 1 :ch 3 :strip 1 :reverse? true}
+            {:len 4.50 :fc 1 :ch 3 :strip 0}
             {:len 4.10 :fc 1 :ch 4 :strip 1 :reverse? true}
             {:len 4.75 :fc 1 :ch 4 :strip 0}]})
 
