@@ -86,11 +86,11 @@
    :x2     6.4 :y2 6.4
    :x3     2.1 :y3 4.1
    :x4     1.5 :y4 4.7
-   :strips [{:len 3.90 :fc 1 :ch 5 :strip 1 :reverse? true}
-            {:len 4.95 :fc 1 :ch 5 :strip 0}
-            {:len 3.85 :fc 1 :ch 6 :strip 1 :reverse? true}
-            {:len 5.00 :fc 1 :ch 6 :strip 0}
-            {:len 5.16 :fc 1 :ch 7 :strip 0}]})
+   :strips [{:len 4.90 :fc 1 :ch 5 :strip 0}
+            {:len 4.95 :fc 1 :ch 6 :strip 0}
+            {:len 5.00 :fc 1 :ch 7 :strip 0}
+            {:len 5.05 :fc 2 :ch 0 :strip 0}
+            {:len 5.05 :fc 2 :ch 1 :strip 0}]})
 
 (def group-h
   {:label  "Group H"
@@ -98,12 +98,12 @@
    :x2     5.8 :y2 7.2
    :x3     1.5 :y3 4.7
    :x4     0.9 :y4 5.4
-   :strips [{:len 3.70 :fc 2 :ch 0 :strip 1 :reverse? true}
-            {:len 5.25 :fc 2 :ch 0 :strip 0}
-            {:len 5.27 :fc 2 :ch 1 :strip 0}
-            {:len 5.29 :fc 2 :ch 2 :strip 1 :reverse? true}
-            {:len 5.21 :fc 2 :ch 2 :strip 0}
-            {:len 5.34 :fc 2 :ch 3 :strip 1 :reverse? true}]})
+   :strips [{:len 5.10 :fc 2 :ch 2 :strip 0}
+            {:len 5.10 :fc 2 :ch 3 :strip 0}
+            {:len 5.10 :fc 2 :ch 4 :strip 0}
+            {:len 5.10 :fc 2 :ch 5 :strip 0}
+            {:len 5.10 :fc 2 :ch 6 :strip 0}
+            {:len 5.10 :fc 2 :ch 7 :strip 0}]})
 
 (def group-i
   {:label  "Group I"
@@ -111,12 +111,12 @@
    :x2     5.4 :y2 8.1
    :x3     0.9 :y3 5.4
    :x4     0.5 :y4 6.0
-   :strips [{:len 5.26 :fc 2 :ch 4 :strip 0}
-            {:len 5.36 :fc 2 :ch 4 :strip 1 :reverse? true}
-            {:len 5.38 :fc 2 :ch 5 :strip 0}
-            {:len 5.38 :fc 2 :ch 5 :strip 1 :reverse? true}
-            {:len 5.36 :fc 2 :ch 6 :strip 0}
-            {:len 5.32 :fc 2 :ch 6 :strip 1 :reverse? true}]})
+   :strips [{:len 5.10 :fc 3 :ch 0 :strip 0}
+            {:len 5.10 :fc 3 :ch 1 :strip 0}
+            {:len 5.10 :fc 3 :ch 2 :strip 0}
+            {:len 5.20 :fc 3 :ch 3 :strip 0}
+            {:len 5.20 :fc 3 :ch 4 :strip 0}
+            {:len 5.20 :fc 3 :ch 5 :strip 0}]})
 
 (def group-j
   {:label  "Group J"
@@ -124,11 +124,11 @@
    :x2     5.7 :y2 9.3
    :x3     0.5 :y3 6.0
    :x4     0.5 :y4 6.4
-   :strips [{:len 5.28 :fc 3 :ch 0}
-            {:len 5.38 :fc 3 :ch 1}
-            {:len 4.89 :fc 3 :ch 2}
-            {:len 5.67 :fc 3 :ch 3}
-            {:len 4.63 :fc 3 :ch 3 :reverse? true}]})
+   :strips [{:len 5.18 :fc 3 :ch 6}
+            {:len 5.28 :fc 3 :ch 7}
+            {:len 3.30 :fc 4 :ch 0 :strip 1 :reverse? true}
+            {:len 5.57 :fc 4 :ch 0 :strip 0}
+            {:len 3.05 :fc 4 :ch 1 :strip 1 :reverse? true}]})
 
 (def group-k
   {:label  "Group K"
@@ -136,11 +136,11 @@
    :x2     5.3 :y2 10.3
    :x3     0.5 :y3 6.4
    :x4     0.5 :y4 6.4
-   :strips [{:len 5.96 :fc 3 :ch 4}
-            {:len 3.80 :fc 3 :ch 5}
-            {:len 4.38 :fc 3 :ch 6 :strip 1 :reverse? true}
-            {:len 5.90 :fc 3 :ch 6 :strip 0}
-            {:len 3.90 :fc 3 :ch 7}]})
+   :strips [{:len 5.76 :fc 4 :ch 1 :strip 0}
+            {:len 3.80 :fc 4 :ch 2 :strip 1 :reverse? true}
+            {:len 4.38 :fc 4 :ch 2 :strip 0}
+            {:len 5.90 :fc 4 :ch 3 :strip 0}
+            {:len 2.90 :fc 4 :ch 3 :strip 1 :reverse? true}]})
 
 (def group-l
   {:label  "Group L"
@@ -148,12 +148,12 @@
    :x2     5.0 :y2 11.6
    :x3     0.5 :y3 6.4
    :x4     0.5 :y4 6.5
-   :strips [{:len 5.73 :fc 4 :ch 0}
-            {:len 3.36 :fc 4 :ch 1}
-            {:len 5.15 :fc 4 :ch 2}
-            {:len 3.16 :fc 4 :ch 2 :reverse? true}
-            {:len 5.78 :fc 4 :ch 3}
-            {:len 3.56 :fc 4 :ch 3 :reverse? true}]})
+   :strips [{:len 5.73 :fc 4 :ch 4 :strip 0}
+            {:len 3.36 :fc 4 :ch 4 :strip 1 :reverse? true}
+            {:len 5.15 :fc 4 :ch 5 :strip 1}
+            {:len 3.16 :fc 4 :ch 5 :strip 1 :reverse? true}
+            {:len 5.78 :fc 4 :ch 6 :strip 0}
+            {:len 3.56 :fc 4 :ch 7 :strip 0}]})
 
 (def group-m
   {:label  "Group M"
@@ -161,12 +161,12 @@
    :x2     5.3 :y2 13.4
    :x3     0.5 :y3  6.5
    :x4     0.5 :y4  6.6
-   :strips [{:len 8.50 :fc 5 :ch 0}
+   :strips [{:len 8.10 :fc 5 :ch 0}
             {:len 4.00 :fc 5 :ch 1}
             {:len 6.00 :fc 5 :ch 2}
             {:len 4.50 :fc 5 :ch 3}
             {:len 6.50 :fc 5 :ch 4}
-            {:len 8.50 :fc 5 :ch 5}
+            {:len 8.10 :fc 5 :ch 5}
             ;;{:len 7.50 :fc 5 :ch 6}
             ]})
 
@@ -176,12 +176,12 @@
    :x2     3.0 :y2 12.1
    :x3     0.5  :y3 6.6
    :x4     0.5  :y4 6.7
-   :strips [{:len 2.70 :fc 6 :ch 0 :reverse? true}
-            {:len 4.59 :fc 6 :ch 0}
-            {:len 5.04 :fc 6 :ch 1}
-            {:len 3.30 :fc 6 :ch 1 :reverse? true}
-            {:len 5.50 :fc 6 :ch 2}
-            {:len 3.80 :fc 6 :ch 2 :reverse? true}
+   :strips [{:len 2.70 :fc 6 :ch 0 :strip 1 :reverse? true}
+            {:len 4.59 :fc 6 :ch 0 :strip 0}
+            {:len 5.04 :fc 6 :ch 1 :strip 0}
+            {:len 3.30 :fc 6 :ch 1 :strip 1 :reverse? true}
+            {:len 5.50 :fc 6 :ch 2 :strip 0}
+            {:len 3.20 :fc 6 :ch 2 :strip 1 :reverse? true}
             {:len 5.37 :fc 6 :ch 3}]})
 
 (def group-o
@@ -190,11 +190,11 @@
    :x2     1.9 :y2 12.2
    :x3     0.5 :y3 6.7
    :x4     0.5 :y4 6.8
-   :strips [{:len 2.85 :fc 6 :ch 4 :reverse? true}
-            {:len 5.12 :fc 6 :ch 4}
-            {:len 2.70 :fc 6 :ch 5 :reverse? true}
-            {:len 4.32 :fc 6 :ch 5}
-            {:len 3.00 :fc 6 :ch 5}]})
+   :strips [{:len 2.85 :fc 6 :ch 4 :strip 1 :reverse? true}
+            {:len 5.12 :fc 6 :ch 4 :strip 0}
+            {:len 2.70 :fc 6 :ch 5 :strip 1 :reverse? true}
+            {:len 4.32 :fc 6 :ch 5 :strip 0}
+            {:len 3.40 :fc 6 :ch 6 :strip 0}]})
 
 (defn length-check
   [{:keys [x1 x2 x3 x4
