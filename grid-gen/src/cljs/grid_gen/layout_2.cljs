@@ -137,10 +137,10 @@
    :x3     0.5 :y3 6.4
    :x4     0.5 :y4 6.4
    :strips [{:len 5.96 :fc 3 :ch 4}
-            {:len 5.80 :fc 3 :ch 5}
+            {:len 3.80 :fc 3 :ch 5}
             {:len 4.38 :fc 3 :ch 6 :strip 1 :reverse? true}
             {:len 5.90 :fc 3 :ch 6 :strip 0}
-            {:len 4.61 :fc 3 :ch 7}]})
+            {:len 3.90 :fc 3 :ch 7}]})
 
 (def group-l
   {:label  "Group L"
@@ -149,7 +149,7 @@
    :x3     0.5 :y3 6.4
    :x4     0.5 :y4 6.5
    :strips [{:len 5.73 :fc 4 :ch 0}
-            {:len 4.36 :fc 4 :ch 1}
+            {:len 3.36 :fc 4 :ch 1}
             {:len 5.15 :fc 4 :ch 2}
             {:len 3.16 :fc 4 :ch 2 :reverse? true}
             {:len 5.78 :fc 4 :ch 3}
@@ -162,12 +162,13 @@
    :x3     0.5 :y3  6.5
    :x4     0.5 :y4  6.6
    :strips [{:len 8.50 :fc 5 :ch 0}
-            {:len 7.83 :fc 5 :ch 1}
-            {:len 5.75 :fc 5 :ch 2}
-            {:len 7.04 :fc 5 :ch 3}
-            {:len 7.86 :fc 5 :ch 4}
-            {:len 6.19 :fc 5 :ch 5}
-            {:len 7.50 :fc 5 :ch 6}]})
+            {:len 4.00 :fc 5 :ch 1}
+            {:len 6.00 :fc 5 :ch 2}
+            {:len 4.50 :fc 5 :ch 3}
+            {:len 6.50 :fc 5 :ch 4}
+            {:len 8.50 :fc 5 :ch 5}
+            ;;{:len 7.50 :fc 5 :ch 6}
+            ]})
 
 (def group-n
   {:label  "Group N"
@@ -175,7 +176,7 @@
    :x2     3.0 :y2 12.1
    :x3     0.5  :y3 6.6
    :x4     0.5  :y4 6.7
-   :strips [{:len 1.69 :fc 6 :ch 0 :reverse? true}
+   :strips [{:len 2.70 :fc 6 :ch 0 :reverse? true}
             {:len 4.59 :fc 6 :ch 0}
             {:len 5.04 :fc 6 :ch 1}
             {:len 3.30 :fc 6 :ch 1 :reverse? true}
@@ -191,9 +192,9 @@
    :x4     0.5 :y4 6.8
    :strips [{:len 2.85 :fc 6 :ch 4 :reverse? true}
             {:len 5.12 :fc 6 :ch 4}
-            {:len 2.00 :fc 6 :ch 5 :reverse? true}
+            {:len 2.70 :fc 6 :ch 5 :reverse? true}
             {:len 4.32 :fc 6 :ch 5}
-            {:len 3.59 :fc 6 :ch 5}]})
+            {:len 3.00 :fc 6 :ch 5}]})
 
 (defn length-check
   [{:keys [x1 x2 x3 x4
