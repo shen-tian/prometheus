@@ -62,11 +62,11 @@
    :x2     6.9 :y2 4.6
    :x3     3.3 :y3 3.1
    :x4     2.6 :y4 3.6
-   :strips [{:len 4.35 :fc 1 :ch 0 :strip 1 :reverse? true}
-            {:len 4.40 :fc 1 :ch 0 :strip 0}
-            {:len 4.53 :fc 1 :ch 1 :strip 0}
-            {:len 4.50 :fc 1 :ch 1 :strip 1 :reverse? true}
-            {:len 4.52 :fc 1 :ch 2 :strip 0}]})
+   :strips [{:len 4.20 :fc 1 :ch 0 :strip 1 :reverse? true}
+            {:len 4.25 :fc 1 :ch 0 :strip 0}
+            {:len 4.27 :fc 1 :ch 1 :strip 1 :reverse? true}
+            {:len 4.30 :fc 1 :ch 1 :strip 0}
+            {:len 4.32 :fc 1 :ch 2 :strip 1 :reverse? true}]})
 
 (def group-f
   {:label  "Group F"
@@ -74,11 +74,11 @@
    :x2     6.8 :y2 5.6
    :x3     2.6 :y3 3.6
    :x4     2.1 :y4 4.1
-   :strips [{:len 4.44 :fc 1 :ch 3 :strip 0}
-            {:len 4.45 :fc 1 :ch 3 :strip 1 :reverse? true}
-            {:len 4.65 :fc 1 :ch 4 :strip 0}
+   :strips [{:len 4.44 :fc 1 :ch 2 :strip 0}
+            {:len 4.15 :fc 1 :ch 3 :strip 1 :reverse? true}
+            {:len 4.65 :fc 1 :ch 3 :strip 0}
             {:len 4.10 :fc 1 :ch 4 :strip 1 :reverse? true}
-            {:len 4.85 :fc 1 :ch 5 :strip 0}]})
+            {:len 4.75 :fc 1 :ch 4 :strip 0}]})
 
 (def group-g
   {:label  "Group G"
@@ -86,11 +86,11 @@
    :x2     6.4 :y2 6.4
    :x3     2.1 :y3 4.1
    :x4     1.5 :y4 4.7
-   :strips [{:len 5.02 :fc 1 :ch 6 :strip 0}
-            {:len 5.16 :fc 1 :ch 6 :strip 1 :reverse? true}
-            {:len 5.18 :fc 1 :ch 7 :strip 0}
-            {:len 5.20 :fc 1 :ch 7 :strip 1 :reverse? true}
-            {:len 5.16 :fc 1 :ch 7 :strip 2}]})
+   :strips [{:len 3.90 :fc 1 :ch 5 :strip 1 :reverse? true}
+            {:len 4.95 :fc 1 :ch 5 :strip 0}
+            {:len 3.85 :fc 1 :ch 6 :strip 1 :reverse? true}
+            {:len 5.00 :fc 1 :ch 6 :strip 0}
+            {:len 5.16 :fc 1 :ch 7 :strip 0}]})
 
 (def group-h
   {:label  "Group H"
@@ -98,11 +98,11 @@
    :x2     5.8 :y2 7.2
    :x3     1.5 :y3 4.7
    :x4     0.9 :y4 5.4
-   :strips [{:len 5.15 :fc 2 :ch 0 :strip 0}
-            {:len 5.25 :fc 2 :ch 0 :strip 1 :reverse? true}
-            {:len 5.27 :fc 2 :ch 2 :strip 0}
+   :strips [{:len 3.70 :fc 2 :ch 0 :strip 1 :reverse? true}
+            {:len 5.25 :fc 2 :ch 0 :strip 0}
+            {:len 5.27 :fc 2 :ch 1 :strip 0}
             {:len 5.29 :fc 2 :ch 2 :strip 1 :reverse? true}
-            {:len 5.21 :fc 2 :ch 3 :strip 0}
+            {:len 5.21 :fc 2 :ch 2 :strip 0}
             {:len 5.34 :fc 2 :ch 3 :strip 1 :reverse? true}]})
 
 (def group-i
@@ -308,7 +308,7 @@
                   x       (* scale (+ x1 (* x-pitch (+ idx 0.5))))
                   sx      (- x (* len scale (Math/cos angle)))
                   sy      (- y (* len scale (Math/sin angle)))
-                  pixels  (inc (Math/ceil (* len pixel-per-m)))
+                  pixels  (Math/ceil (* len pixel-per-m))
                   x-pitch (/ (- x sx) (dec pixels))
                   y-pitch (/ (- y sy) (dec pixels))]
               (->> (range pixels)
