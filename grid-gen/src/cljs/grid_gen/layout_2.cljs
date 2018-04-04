@@ -136,7 +136,7 @@
    :x2     5.3 :y2 10.3
    :x3     0.5 :y3 6.4
    :x4     0.5 :y4 6.4
-   :strips [{:len 5.76 :fc 4 :ch 1 :strip 0}
+   :strips [{:len 5.50 :fc 4 :ch 1 :strip 0}
             {:len 3.80 :fc 4 :ch 2 :strip 1 :reverse? true}
             {:len 4.38 :fc 4 :ch 2 :strip 0}
             {:len 5.90 :fc 4 :ch 3 :strip 0}
