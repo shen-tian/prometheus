@@ -149,7 +149,7 @@
    :x3     0.5 :y3 6.4
    :x4     0.5 :y4 6.5
    :strips [{:len 5.73 :fc 4 :ch 4 :strip 0}
-            {:len 3.36 :fc 4 :ch 4 :strip 1 :reverse? true}
+            {:len 3.20 :fc 4 :ch 4 :strip 1 :reverse? true}
             {:len 5.15 :fc 4 :ch 5 :strip 1}
             {:len 3.16 :fc 4 :ch 5 :strip 1 :reverse? true}
             {:len 5.78 :fc 4 :ch 6 :strip 0}
