@@ -21,8 +21,8 @@ void setup()
   for (int i = 0; i < layout.size(); i++) 
   {
     JSONArray point = layout.getJSONObject(i).getJSONArray("point");
-    int x = shiftCoord(width, 10, point.getFloat(0));
-    int y = shiftCoord(height, 10, point.getFloat(1));
+    int x = shiftCoord(width, 5, point.getFloat(0));
+    int y = shiftCoord(height, 5, point.getFloat(1));
     opc.led(i, x, y);
   }
 }

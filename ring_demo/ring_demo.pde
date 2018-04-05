@@ -14,15 +14,15 @@ void setup()
 
   // Connect to the local instance of fcserver. You can change this line to connect to another computer's fcserver
   opc = new OPC(this, "127.0.0.1", 7890);
-  opc.showLocations(false);
+  //opc.showLocations(false);
 
   JSONArray layout = loadJSONArray("layout.json");
   
   for (int i = 0; i < layout.size(); i++) 
   {
     JSONArray point = layout.getJSONObject(i).getJSONArray("point");
-    int x = shiftCoord(8 * 24, 10, point.getFloat(0));
-    int y = shiftCoord(8 * 24, 10, point.getFloat(1));
+    int x = shiftCoord(8 * 24, 5, point.getFloat(0));
+    int y = shiftCoord(8 * 24, 5, point.getFloat(1));
     opc.led(i, x, y);
   }
   
