@@ -9,20 +9,19 @@ int shiftCoord(int w, float r, float x)
 
 void setup()
 {
-  int zoom = 8;
-  size(24*zoom, 24*zoom);
+  size(192, 192);
 
   // Connect to the local instance of fcserver. You can change this line to connect to another computer's fcserver
   opc = new OPC(this, "127.0.0.1", 7890);
-  //opc.showLocations(false);
+  opc.showLocations(false);
 
   JSONArray layout = loadJSONArray("layout.json");
   
   for (int i = 0; i < layout.size(); i++) 
   {
     JSONArray point = layout.getJSONObject(i).getJSONArray("point");
-    int x = shiftCoord(8 * 24, 5, point.getFloat(0));
-    int y = shiftCoord(8 * 24, 5, point.getFloat(1));
+    int x = shiftCoord(width, 5, point.getFloat(0));
+    int y = shiftCoord(height, 5, point.getFloat(1));
     opc.led(i, x, y);
   }
   
@@ -87,4 +86,3 @@ void draw() {
   }
   updatePixels();
 }
-
