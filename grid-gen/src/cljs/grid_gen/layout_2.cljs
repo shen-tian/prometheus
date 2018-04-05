@@ -401,9 +401,12 @@
        vec))
 
 (defn transform-to-unit
+  "Takes x and y, which go into a box sized max-x x max-y. Map it
+  into a square, centered at (0, 0) with sides of 2r"
   [x y r max-x max-y]
-  [(- (* (/ x max-x) 2 r) r)
-   (- (* (/ y max-y) 2 r) r)])
+  (let [long-side (max max-x max-y)]
+    [(* (/ (- x (/ max-x 2)) long-side) 2 r)
+     (* (/ (- y (/ max-y 2)) long-side) 2 r)]))
 
 (defn pixels->edn
   [pixels]
