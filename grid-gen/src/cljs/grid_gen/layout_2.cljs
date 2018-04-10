@@ -30,7 +30,7 @@
    :x2     8.3 :y2 0.8
    :x3     6.3 :y3 1.0
    :x4     5.5 :y4 1.5
-   :strips [{:len 1.1 :fc 0 :ch 0 :strip 3 :reverse? true}
+   :strips [{:len 1.25 :fc 0 :ch 0 :strip 3 :reverse? true}
             {:len 2.1 :fc 0 :ch 0 :strip 2}
             {:len 2.5 :fc 0 :ch 0 :strip 1 :reverse? true}]})
 
@@ -430,9 +430,43 @@
                 {:point [tx ty 0]})))
        vec))
 
+(defn pixels->fcserver
+  [pixels]
+  (let [fc-px  (fn [px]
+                 (vec (map count (partition-by :ch px))))
+        totals (reductions + 0
+                           (->> pixels
+                                (partition-by :fc)
+                                (map count)))
+        expand (fn [counts]
+                 (map (fn [n acc idx]
+                        [0 acc (* idx 64) n])
+                      counts
+                      (vec (reductions + 0 counts))
+                      (range (count counts))))
+        offset (fn [o maps]
+                 (map (fn [[channel first-px first-out px-count]]
+                        [channel (+ o first-px) first-out px-count])
+                      maps))
+        device (fn [dev-map]
+                 {:type   "fadecandy"
+                  :serial "SERIAL"
+                  :map    (vec dev-map)})]
+    (.log js/console (str totals))
+    {:listen  [nil 7890]
+     :verbose true
+     :color   {:gamma      2.5
+               :whitepoint [1 1 1]}
+     :devices (->> pixels
+                   (partition-by :fc)
+                   (map fc-px)
+                   (map expand)
+                   (map offset totals)
+                   (map device))}))
+
 (defn edn->pstring
   [edn]
-  (.stringify js/JSON (clj->js edn) nil 2))
+  (js/stringify (clj->js edn) nil))
 
 (defonce lines? (reagent/atom true))
 
@@ -496,4 +530,5 @@
      [layout-2 groups pixels]
      [layout-logical groups]
      [utils/clipboard-button "Click!"
-      (edn->pstring (pixels->edn pixels))]]))
+      (edn->pstring (pixels->edn pixels))]
+     [:div [:pre [:code (edn->pstring (pixels->fcserver pixels))]]]]))
