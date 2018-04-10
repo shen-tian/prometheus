@@ -7,8 +7,8 @@
 (def pixel-per-m (/ 1 0.14))
 
 (def repeater-config
-  [{:fc 3 :ch 4 :n 2}
-   {:fc 4 :ch 2 :n 1}])
+  [{:fc 0 :ch 0 :n 3}
+   {:fc 0 :ch 1 :n 2}])
 
 (def group-a
   {:label  "Group A"
@@ -16,7 +16,7 @@
    :x2     8.3 :y2 0.8
    :x3     6.3 :y3 1.0
    :x4     5.5 :y4 1.5
-   :strips [{:len 1.5 :fc 0 :ch 0 :strip 3 :reverse? true}
+   :strips [{:len 1.1 :fc 0 :ch 0 :strip 3 :reverse? true}
             {:len 2.1 :fc 0 :ch 0 :strip 2}
             {:len 2.5 :fc 0 :ch 0 :strip 1 :reverse? true}]})
 
@@ -54,7 +54,7 @@
             {:len 4.20 :fc 0 :ch 6 :strip 1 :reverse? true}
             {:len 4.25 :fc 0 :ch 6 :strip 0}
             {:len 4.10 :fc 0 :ch 7 :strip 1 :reverse? true}
-            {:len 4.20 :fc 0 :ch 7 :strip 2}]})
+            {:len 4.20 :fc 0 :ch 7 :strip 0}]})
 
 (def group-e
   {:label  "Group E"

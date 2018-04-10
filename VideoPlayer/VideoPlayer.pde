@@ -10,10 +10,71 @@ float zoom = 1;
 Movie movie;
 PGraphics[] pyramid;
 
+OPC opc;
+
+int shiftCoord(int w, float r, float x) 
+{
+    return (int) (w * ((x + r) / (2 * r)));
+}
+
 void setup()
 {
     System.out.println("Launching video");
     size(480, 270, P3D);
+    
+        // Connect to the local instance of fcserver. You can change this line to connect to another computer's fcserver
+    opc = new OPC(this, "127.0.0.1", 7890);
+    opc.showLocations(true);
+
+    JSONArray layout = loadJSONArray("layout.json");
+
+    float minX = 1000;
+    float minY = 1000;
+    float maxX = -1000;
+    float maxY = -1000;
+    
+    for (int i = 0; i < layout.size(); i++)
+    {
+        JSONArray point = layout.getJSONObject(i).getJSONArray("point");
+        float x = point.getFloat(1);
+        float y = point.getFloat(0);
+          
+          minX = min(minX, x);
+          maxX = max(maxX, x);
+          
+         minY = min(minY, y);
+         maxY = max(maxY, y);
+    }
+    
+    System.out.println(maxX);
+    System.out.println(maxY);
+
+    float xScale = width/(maxX - minX);
+    float yScale = height/(maxY - minY);
+    
+    float scale = 0.99 * min(xScale, yScale);
+    
+
+    for (int i = 0; i < layout.size(); i++) 
+    {
+        JSONArray point = layout.getJSONObject(i).getJSONArray("point");
+        
+        float x = point.getFloat(1);
+        float y = point.getFloat(0);
+        
+        if ((x != -5.0) && (y != -5.0)){
+          int xx = (int)(scale * (x - minX));
+          int yy = height - 1 - (int)(scale * (y - minY));
+          opc.led(i, xx, yy);
+        }
+        else
+        {
+          opc.led(i, 0, 0);
+        }
+    }
+
+    // Make the status LED quiet
+    opc.setStatusLed(false);
     
     movie = new Movie(this, filename);
     movie.loop();
