@@ -531,4 +531,7 @@
      [layout-logical groups]
      [utils/clipboard-button "Click!"
       (edn->pstring (pixels->edn pixels))]
-     [:div [:pre [:code (edn->pstring (pixels->fcserver pixels))]]]]))
+     (let [fcserver (edn->pstring (pixels->fcserver pixels))]
+       [:div
+        [utils/clipboard-button "FCServer!" fcserver]
+        [:div [:pre [:code ]]]])]))
