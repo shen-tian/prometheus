@@ -5,7 +5,7 @@
   "devices": [
     {
       "type": "fadecandy",
-      "serial": "CYWIZPCIOYXXVBMB",
+      "serial": "SERIAL",
       "map": [
         [0, 0, 0, 64],
         [0, 64, 64, 49],
@@ -19,7 +19,7 @@
     },
     {
       "type": "fadecandy",
-      "serial": "WAYSRTWSKAPFPPGJ",
+      "serial": "SERIAL",
       "map": [
         [0, 463, 0, 62],
         [0, 525, 64, 62],
@@ -33,7 +33,7 @@
     },
     {
       "type": "fadecandy",
-      "serial": "SSYHEUCQCUZKCEHD",
+      "serial": "QCIXOEMIAULUGQRL",
       "map": [
         [0, 885, 0, 38],
         [0, 923, 64, 37],
@@ -47,7 +47,7 @@
     },
     {
       "type": "fadecandy",
-      "serial": "THPSLLPHAUZGSGLD",
+      "serial": "CYWIZPCIOYXXVBMB",
       "map": [
         [0, 1182, 0, 38],
         [0, 1220, 64, 37],
@@ -61,7 +61,7 @@
     },
     {
       "type": "fadecandy",
-      "serial": "SERIAL",
+      "serial": "WAYSRTWSKAPFPPGJ",
       "map": [
         [0, 1483, 0, 64],
         [0, 1547, 64, 62],
@@ -75,7 +75,7 @@
     },
     {
       "type": "fadecandy",
-      "serial": "SERIAL",
+      "serial": "SSYHEUCQCUZKCEHD",
       "map": [
         [0, 1929, 0, 58],
         [0, 1987, 64, 33],
@@ -87,15 +87,15 @@
     },
     {
       "type": "fadecandy",
-      "serial": "SERIAL",
+      "serial": "THPSLLPHAUZGSGLD",
       "map": [
         [0, 2208, 0, 55],
-        [0, 2263, 64, 61],
-        [0, 2324, 128, 63],
-        [0, 2387, 192, 39],
-        [0, 2426, 256, 58],
-        [0, 2484, 320, 52],
-        [0, 2536, 384, 27]
+        [0, 2263, 64, 62],
+        [0, 2325, 128, 63],
+        [0, 2388, 192, 39],
+        [0, 2427, 256, 58],
+        [0, 2485, 320, 52],
+        [0, 2537, 384, 27]
       ]
     }
   ]

@@ -20,7 +20,7 @@
    {:fc 5 :ch 3 :n 3}
    {:fc 5 :ch 4 :n 2}
    {:fc 6 :ch 0 :n 2}
-   {:fc 6 :ch 1 :n 1}
+   {:fc 6 :ch 1 :n 2}
    {:fc 6 :ch 5 :n 1}
    {:fc 6 :ch 6 :n 2}])
 
