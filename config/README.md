@@ -2,9 +2,11 @@
 
 > Updated for 2024
 
-FC:0 being the frontmost section.
+FC:0 being the frontmost section. No convention on which is left v.s. right
 
 Wing-0
+
+hostname `wing-0.local`
 
 - FC:0 `RRABGQLNRLXXJFOF`
 - FC:1 `LRHMJFCCGGNWCAZJ`
@@ -15,6 +17,8 @@ Wing-0
 - FC:6 `TPZWNNGUSWNSOIPL`
 
 Wing-1
+
+hostname `wing-1.local`
 
 - FC:0 `GACBIIMUSMXAYIPR`
 - FC:1 `VRPELDJTQEBSIYJV`

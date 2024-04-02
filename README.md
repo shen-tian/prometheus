@@ -20,38 +20,47 @@ as a simulator.
 
 ## Pi Setup
 
-1. Start with Raspbian Stretch Lite image
-2. Enable SSH (`raspi-config`)
-3. Set hostname to `wing-n`
+> Updated for 2024
 
-Then:
+We are using Raspberry Pi 3b+, with a PoE hat.
 
-```
-sudo apt-get -y install netatalk
-sudo apt-get -y install git
-sudo apt-get -y install emacs
-git clone git://github.com/scanlime/fadecandy
-cd fadecandy/server
-make submodules
-make
-sudo mv fcserver /usr/local/bin
-```
+For all the the below, we use `w0`. repeat for `w1` and `w2` (spare pi)
 
-Place `fcserver.json` in `/home/pi`, Then, add
+Create the image Use Raspberry Pi Imager (currently v1.8.5)
+
+* Device -> Pi 3; OS Legacy 32-bit Lite (Bullseye)
+* Set hostname to `wing-0.local`
+* Set username and password to `pi:<password>`
+* Enable SSH (password)
+
+Flash image. Connect to a router and wait for it to boot up.
+
+copy these two files over (local path might vary)
 
 ```
-/usr/local/bin/fcserver /home/pi/fcserver.json >/var/log/fcserver.log 2>&1 &
+scp code/prometheus/config/w0-fcserver.json pi@wing-0.local:w0-fcserver.json
+scp code/prometheus/config/fcserver_watchdog.sh pi@wing-0.local:fcserver_watchdog.sh
+scp code/fadecandy/bin/fcserver-rpi pi@wing-0.local:fcserver
 ```
 
-to `/etc/rc.local`
-
-Static IP config: in `/etc/dhcpcd.conf`:
+SSH in (`ssh pi@wing-0.local`) and verify that you can run it
 
 ```
-interface eth0
-static ip_address=192.168.1.11/24
-static routers=192.168.1.2
-static domain_name_servers=8.8.8.8
+sudo ./fcserver w0-fcserver.json
 ```
 
-where the IP on line 2 is as different for each wing.
+to automatically start it, add
+
+```
+/home/pi/fcserver_watchdog.sh /home/pi/w0-fcserver.json &
+```
+
+to `/etc/rc.local`, before `exit 0`
+
+then
+
+```
+sudo reboot
+```
+
+wait about two minutes. verify that you can connect to web interface.
