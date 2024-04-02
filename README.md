@@ -52,7 +52,7 @@ sudo ./fcserver w0-fcserver.json
 to automatically start it, add
 
 ```
-/home/pi/fcserver_watchdog.sh /home/pi/w0-fcserver.json &
+/home/pi/fcserver_watchdog.sh /home/pi/w0-fcserver.json >> /home/pi/watchdog.log &
 ```
 
 to `/etc/rc.local`, before `exit 0`
@@ -64,3 +64,6 @@ sudo reboot
 ```
 
 wait about two minutes. verify that you can connect to web interface.
+
+- `fcserver.log` has the output from fcserver
+- `watchdog.log` has the output from the watchdog itself
